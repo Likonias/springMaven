@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shape Detector</title>
+</head>
+<body>
+<h1>Shape Detector</h1>
+
+<form action="#" th:action="@{/getShape}" method="post">
+    <button type="submit">Získat a zobrazit tvar</button>
+</form>
+
+<div>
+    <h2>Přijatý JSON:</h2>
+    <textarea rows="10" cols="50" th:text="${originalShape}" readonly></textarea>
+</div>
+<div>
+    <h2>Doplněný JSON:</h2>
+    <textarea rows="10" cols="50" th:text="${modifiedShape}" readonly></textarea>
+</div>
+</body>
+</html>
