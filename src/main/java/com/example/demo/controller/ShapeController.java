@@ -49,13 +49,19 @@ public class ShapeController {
             // Získání odpovědi
             String shapeData = response.getBody();
 
-            // Výpis odpovědi do šablony
-            model.addAttribute("originalShape", shapeData);
-
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Object> shape = objectMapper.readValue(shapeData, new TypeReference<Map<String, Object>>(){});
 
             Shape createdShape = shapeCreator.createShape(shape);
+
+            // Výpis odpovědi do šablony
+            model.addAttribute("originalShape", createdShape.toString());
+
+            Shape finishedShape = createdShape;
+
+            finishedShape.finishShape();
+
+            model.addAttribute("modifiedShape", finishedShape.toString());
 
         } catch (Exception e) {
 

@@ -21,4 +21,6 @@ public abstract class Shape {
 
     public abstract void finishShape();
 
+    public abstract String toString();
+
 }
