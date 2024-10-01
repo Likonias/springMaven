@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.shape.Shape;
+import com.example.demo.shape.ShapeCreator;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,10 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
 public class ShapeController {
 
     private final RestTemplate restTemplate;
+    private ShapeCreator shapeCreator = new ShapeCreator();
 
     public ShapeController() {
         this.restTemplate = new RestTemplate();
@@ -43,6 +51,11 @@ public class ShapeController {
 
             // Výpis odpovědi do šablony
             model.addAttribute("originalShape", shapeData);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> shape = objectMapper.readValue(shapeData, new TypeReference<Map<String, Object>>(){});
+
+            Shape createdShape = shapeCreator.createShape(shape);
 
         } catch (Exception e) {
 
